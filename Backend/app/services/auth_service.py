@@ -14,7 +14,7 @@ def register_user(user : RegisterRequest, db : Session):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return 
+    return new_user
 
 def login_user(user : LoginRequest, db : Session):
     db_user = db.query(User).filter(User.email == user.email).first()
