@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.models.task import Task
+    from app.models.goal import Goal
 
 class User(Base):
     __tablename__ = "users"
@@ -16,3 +17,4 @@ class User(Base):
     password_hash : Mapped[str] = mapped_column(String, nullable= False) # Hash version of pswd
     created_at : Mapped[datetime] = mapped_column(DateTime, default= lambda: datetime.now(UTC)) # Time and Date os record creation
     tasks : Mapped[list["Task"]] = relationship(back_populates= "user", cascade= "all, delete-orphan") # Relationship with Task table
+    goals : Mapped[list["Goal"]] = relationship(back_populates = "user", cascade = "all, delete-orphan")

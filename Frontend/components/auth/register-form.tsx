@@ -1,5 +1,7 @@
 "use client"
 
+import { registerUser } from "@/lib/api"
+
 import type React from "react"
 import { useState } from "react"
 import { Sparkles, User, Mail, Lock, Loader2 } from "lucide-react"
@@ -20,13 +22,24 @@ export function RegisterForm() {
   const [password, setPassword] = useState("")
   const [submitting, setSubmitting] = useState(false)
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setSubmitting(true)
-    // Mock submit handler only
-    console.log("[v0] Register submit:", { name, email, password })
-    setTimeout(() => setSubmitting(false), 1200)
+  async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault()
+  setSubmitting(true)
+
+  try {
+    const data = await registerUser(name, email, password)
+
+    console.log("Registration successful:", data)
+
+    window.location.href = "/login"
+
+  } catch (error) {
+    console.error("Registration failed:", error)
+    alert(error instanceof Error ? error.message : "Registration failed")
+  } finally {
+    setSubmitting(false)
   }
+}
 
   return (
     <Card className="w-full max-w-md border-border/60 bg-card shadow-2xl backdrop-blur-xl">

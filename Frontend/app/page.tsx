@@ -1,5 +1,20 @@
-import { DashboardShell } from "@/components/dashboard/dashboard-shell"
+"use client"
+
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
-  return <DashboardShell />
+  const router = useRouter()
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token")
+
+    if (token) {
+      router.replace("/dashboard")
+    } else {
+      router.replace("/login")
+    }
+  }, [router])
+
+  return null
 }

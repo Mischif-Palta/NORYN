@@ -1,5 +1,7 @@
 "use client"
 
+import { createTask } from "@/lib/api"
+
 import type React from "react"
 import { useState } from "react"
 import { CalendarDays, Clock, FileText, Flag, Type } from "lucide-react"
@@ -54,15 +56,30 @@ export function AddTaskModal({ open, onOpenChange }: AddTaskModalProps) {
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setSaving(true)
-    // Mock submit handler
-    console.log("[v0] Saving new task:", draft)
-    await new Promise((r) => setTimeout(r, 800))
-    setSaving(false)
+  e.preventDefault()
+  setSaving(true)
+
+  try {
+    const data = await createTask(
+      draft.title,
+      draft.description,
+      draft.priority,
+      draft.deadline ? `${draft.deadline}T23:59:00` : null
+    )
+
+    console.log("Task created successfully:", data)
+
     setDraft(initialDraft)
     onOpenChange(false)
+
+    window.location.reload()
+  } catch (error) {
+    console.error("Failed to create task:", error)
+    alert(error instanceof Error ? error.message : "Failed to create task")
+  } finally {
+    setSaving(false)
   }
+}
 
   function handleCancel() {
     setDraft(initialDraft)
