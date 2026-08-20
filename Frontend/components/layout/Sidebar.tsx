@@ -7,7 +7,6 @@ import {
   Calendar,
   BarChart3,
   Settings,
-  Sparkles,
   PanelLeftClose,
   PanelLeftOpen,
 } from "lucide-react"
@@ -37,11 +36,18 @@ export function Sidebar({
       )}
     >
       <div className="flex h-16 items-center gap-3 px-5">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-          <Sparkles className="size-5" />
+        <div className="flex size-15 shrink-0 items-center justify-center rounded-xl bg-black">
+          <img
+            src="/noryn/noryn-mark-dark.svg"
+            alt="NORYN"
+            className="size-13"
+          />
         </div>
+
         {!collapsed && (
-          <span className="text-lg font-semibold tracking-tight">LifeOS</span>
+          <span className="text-lg font-semibold tracking-tight">
+            NORYN
+          </span>
         )}
       </div>
 

@@ -40,7 +40,7 @@ export function GoalsSection() {
         (goal: any) => ({
           id: String(goal.id),
           title: goal.title,
-          description: "LifeOS Goal",
+          description: "NORYN Goal",
           progress: goal.progress,
 
           deadline: goal.target_date

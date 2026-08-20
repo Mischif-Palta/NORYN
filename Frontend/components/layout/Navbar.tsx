@@ -1,13 +1,16 @@
 "use client"
 
 import { useState } from "react"
+
 import {
   Search,
   Bell,
   Menu,
   LogOut,
 } from "lucide-react"
+
 import { useRouter } from "next/navigation"
+
 import { logoutUser } from "@/lib/api"
 
 export function Navbar({
@@ -77,10 +80,6 @@ export function Navbar({
             <span className="hidden text-left sm:block">
               <span className="block text-sm font-medium leading-tight text-foreground">
                 Chaitanya
-              </span>
-
-              <span className="block text-xs leading-tight text-muted-foreground">
-                Pro plan
               </span>
             </span>
           </button>

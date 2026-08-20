@@ -1,0 +1,14 @@
+<svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#0A0A0C"/>
+  <!-- reference: the original straight plan -->
+  <line x1="25" y1="24" x2="76" y2="78" stroke="#5A5A62" stroke-width="2" stroke-dasharray="3.5,5" stroke-linecap="round" opacity="0.55"/>
+  <!-- left stroke of N -->
+  <line x1="25" y1="20" x2="25" y2="80" stroke="#F4F3EE" stroke-width="8" stroke-linecap="round"/>
+  <!-- right stroke of N -->
+  <line x1="76" y1="20" x2="76" y2="80" stroke="#F4F3EE" stroke-width="8" stroke-linecap="round"/>
+  <!-- adaptive diagonal: the path that corrects course -->
+  <path d="M 25 24 L 58 37 L 76 78" fill="none" stroke="#F4F3EE" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- waypoint: the moment of adaptation -->
+  <circle cx="58" cy="37" r="3.4" fill="#0A0A0C"/>
+  <circle cx="58" cy="37" r="3.4" fill="none" stroke="#F4F3EE" stroke-width="2.6"/>
+</svg>

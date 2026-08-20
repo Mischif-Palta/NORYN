@@ -4,12 +4,7 @@ import { loginUser } from "@/lib/api"
 import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import {
-  Sparkles,
-  Mail,
-  Lock,
-  Loader2,
-} from "lucide-react"
+import { Mail, Lock, Loader2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -66,13 +61,21 @@ export function LoginForm() {
     <Card className="w-full max-w-md border-border/60 bg-card shadow-2xl backdrop-blur-xl">
       <CardHeader className="items-center text-center">
         <div className="mb-2 flex flex-col items-center gap-3">
-          <div className="flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
-            <Sparkles className="size-6" />
+          <div className="flex size-14 items-center justify-center rounded-2xl bg-white">
+            <img
+              src="/noryn/noryn-mark-light.svg"
+              alt="NORYN"
+              className="size-11"
+            />
           </div>
 
           <span className="text-2xl font-semibold tracking-tight">
-            LifeOS
+            NORYN
           </span>
+
+          <p className="text-xs font-medium text-muted-foreground">
+            Plan less. Adapt better.
+          </p>
         </div>
 
         <CardTitle className="text-xl">

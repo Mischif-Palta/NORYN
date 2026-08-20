@@ -59,7 +59,7 @@ export type Task = {
 export const todaysTasks: Task[] = [
   {
     id: "t1",
-    title: "Finish LifeOS dashboard wireframes",
+    title: "Finish NORYN dashboard wireframes",
     category: "Design",
     time: "9:00 AM",
     priority: "high",
@@ -110,7 +110,7 @@ export type Goal = {
 export const goals: Goal[] = [
   {
     id: "g1",
-    title: "Ship LifeOS v1.0",
+    title: "Ship NORYN v1.0",
     description: "Launch the first public version of the dashboard.",
     progress: 72,
     deadline: "Aug 30",
