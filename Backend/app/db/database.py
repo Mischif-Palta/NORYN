@@ -1,20 +1,44 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase, session
+from sqlalchemy.orm import sessionmaker, DeclarativeBase
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False}) # Connects to DB
-session_local = sessionmaker(autocommit= False, autoflush= False, bind= engine) # Working of DB
+if not DATABASE_URL:
+    raise RuntimeError(
+        "DATABASE_URL environment variable is not set."
+    )
+
+
+if DATABASE_URL.startswith("sqlite"):
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args={
+            "check_same_thread": False
+        },
+    )
+else:
+    engine = create_engine(DATABASE_URL)
+
+
+session_local = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine,
+)
+
 
 class Base(DeclarativeBase):
     pass
 
+
 def get_db():
     db = session_local()
+
     try:
         yield db
     finally:
