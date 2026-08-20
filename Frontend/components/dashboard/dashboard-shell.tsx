@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Plus, X } from "lucide-react"
 import { Sidebar } from "@/components/layout/Sidebar"
 import { Navbar } from "@/components/layout/Navbar"
@@ -9,11 +9,26 @@ import { TasksSection } from "./tasks-section"
 import { GoalsSection } from "./goals-section"
 import { AddTaskModal } from "./add-task-modal"
 import { cn } from "@/lib/utils"
+import { getProfile } from "@/lib/api"
 
 export function DashboardShell() {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [addTaskOpen, setAddTaskOpen] = useState(false)
+  const [userName, setUserName] = useState("")
+
+  useEffect(() => {
+    async function loadProfile() {
+      try {
+        const profile = await getProfile()
+        setUserName(profile.name)
+      } catch {
+        // Authentication handling remains unchanged.
+      }
+    }
+
+    loadProfile()
+  }, [])
 
   return (
     <div className="flex min-h-screen w-full bg-background text-foreground">
@@ -61,12 +76,11 @@ export function DashboardShell() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Navbar onMenuClick={() => setMobileOpen(true)} />
-
         <main className="flex-1 px-4 py-6 md:px-8 md:py-8">
           <div className="mx-auto max-w-6xl">
             <div className="mb-6">
               <h1 className="text-2xl font-semibold tracking-tight text-balance md:text-3xl">
-                Hello Chaitanya{" "}
+                Hello {userName || "there"}{" "}
                 <span className="inline-block" aria-hidden="true">
                   👋
                 </span>

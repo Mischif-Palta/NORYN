@@ -308,6 +308,29 @@ export async function deleteGoal(goalId: string) {
   return data
 }
 
+export async function getProfile() {
+  const token = localStorage.getItem("access_token")
+
+  if (!token) {
+    throw new Error("Not authenticated")
+  }
+
+  const response = await fetch(`${API_URL}/profile`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.detail || "Failed to fetch profile")
+  }
+
+  return data
+}
+
 /* Logout */
 
 export function logoutUser() {

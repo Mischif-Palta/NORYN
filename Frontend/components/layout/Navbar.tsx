@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import {
   Search,
@@ -11,7 +11,7 @@ import {
 
 import { useRouter } from "next/navigation"
 
-import { logoutUser } from "@/lib/api"
+import { getProfile, logoutUser } from "@/lib/api"
 
 export function Navbar({
   onMenuClick,
@@ -20,11 +20,29 @@ export function Navbar({
 }) {
   const router = useRouter()
   const [profileOpen, setProfileOpen] = useState(false)
+  const [userName, setUserName] = useState("")
+
+  useEffect(() => {
+    async function loadProfile() {
+      try {
+        const profile = await getProfile()
+        setUserName(profile.name)
+      } catch {
+        // User will be redirected by the authenticated dashboard flow if needed.
+      }
+    }
+
+    loadProfile()
+  }, [])
 
   function handleLogout() {
     logoutUser()
     router.push("/login")
   }
+
+  const userInitial = userName
+    ? userName.charAt(0).toUpperCase()
+    : "?"
 
   return (
     <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border bg-background/70 px-4 backdrop-blur-xl md:px-8">
@@ -41,7 +59,6 @@ export function Navbar({
       {/* Search */}
       <div className="relative hidden max-w-md flex-1 sm:block">
         <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-
         <input
           type="search"
           placeholder="Search tasks, goals..."
@@ -58,7 +75,6 @@ export function Navbar({
           aria-label="Notifications"
         >
           <Bell className="size-5" />
-
           <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-primary ring-2 ring-background" />
         </button>
 
@@ -74,12 +90,12 @@ export function Navbar({
             aria-expanded={profileOpen}
           >
             <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-semibold text-primary-foreground">
-              C
+              {userInitial}
             </span>
 
             <span className="hidden text-left sm:block">
               <span className="block text-sm font-medium leading-tight text-foreground">
-                Chaitanya
+                {userName || "Loading..."}
               </span>
             </span>
           </button>
